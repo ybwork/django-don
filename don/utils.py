@@ -5,18 +5,27 @@ from zeep.transports import Transport
 from requests.auth import HTTPBasicAuth
 from requests import Session
 
-def work_soap():
-    session = Session()
-    session.auth = HTTPBasicAuth('webclient', '123')
+session = Session()
+client = Client
 
-    client = Client(
-        'http://80.254.115.133:8070/oookp_Donskoy/ws/inpk.1cws?wsdl',
-        transport=Transport(session=session)
-    )
-    params = {
-        'StartPeriod': '1535760000',
-        'EndPeriod': '1538351999',
-        'IdAccount': '101'
-    }
-    return client.service.GetClientBalance(datetime.datetime.now(), datetime.datetime.now(), '101')
+login = 'webclient'
+password = '123'
+
+url = 'http://80.254.115.133:8070/oookp_Donskoy/ws/inpk.1cws?wsdl'
+
+start_period = datetime.datetime.now()
+end_perion = datetime.datetime.now()
+id_account = '101'
+
+
+def get_connection_with_1c_server():
+    session.auth = HTTPBasicAuth(login, password)
+
+    return client(url, transport=Transport(session=session))
+
+
+def fetch_client_balance_from_1c():
+    connection = get_connection_with_1c_server()
+
+    return connection.service.GetClientBalance(start_period, end_perion, id_account)
 
