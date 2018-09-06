@@ -15,7 +15,6 @@ url = 'http://80.254.115.133:8070/oookp_Donskoy/ws/inpk.1cws?wsdl'
 
 start_period = datetime.datetime.now()
 end_perion = datetime.datetime.now()
-id_account = '101'
 
 
 def get_connection_with_1c_server():
@@ -24,8 +23,8 @@ def get_connection_with_1c_server():
     return client(url, transport=Transport(session=session))
 
 
-def fetch_client_balance_from_1c():
+def fetch_user_balance_from_1c(invoice_num):
     connection = get_connection_with_1c_server()
 
-    return connection.service.GetClientBalance(start_period, end_perion, id_account)
+    return connection.service.GetClientBalance(start_period, end_perion, invoice_num)
 

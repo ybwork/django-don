@@ -25,11 +25,11 @@ SECRET_KEY = 'w1m*odye@3r&_l2mt^f+3!3x0%j0dw3e!2xe0971q%dj$n91sd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
-LOGIN_URL = 'login/'
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = 'login'
 # PASSWORD_CHANGE_REDIRECT_URL = '/'
 # APPEND_SLASH = False
 
