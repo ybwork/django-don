@@ -1,6 +1,6 @@
 from django.views.generic import CreateView
 
-from skip.models import Car
+from permits.models import Car
 
 
 class CarCreate(CreateView):
