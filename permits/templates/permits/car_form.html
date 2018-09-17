@@ -5,6 +5,40 @@
     <title>Title</title>
 </head>
 <body>
-    <p>car form</p>
+    <form id="form" action="cars" method="POST">
+        {% csrf_token %}
+        <input name="number" value="">
+        <input name="mark" value="">
+        <input name="model" value="">
+        <button type="submit">Create</button>
+    </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).on('submit', '#form', function(e) {
+        e.preventDefault()
+
+        var form = $(this)
+        var action = form.attr('action')
+        var method = form.attr('mathod')
+        var data = new FormData(form[0])
+
+        $.ajax({
+            url: action,
+            type: method,
+            data: data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function(data) {
+                <!--var response = $.parseJSON(data)-->
+                console.log(1)
+            },
+            error: function(e) {
+                console.log(2)
+            }
+        })
+    })
+</script>
 </body>
 </html>
