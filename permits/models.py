@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class Car(models.Model):
@@ -7,6 +8,9 @@ class Car(models.Model):
     number = models.CharField(max_length=15, unique=True)
     mark = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
+
+    def get_absolute_url(self):
+        return reverse('cars')
 
 
 class People(models.Model):
