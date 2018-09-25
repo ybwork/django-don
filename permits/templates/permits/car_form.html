@@ -5,16 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
     {{ form.non_field_errors }}
     <form id="form" action="cars" method="POST">
         {% csrf_token %}
         {{ form.number.errors }}
-        <input name="number" value="">
+        <input name="number" value="{{ form.data.number }}">
         {{ form.mark.errors }}
-        <input name="mark" value="">
+        <input name="mark" value="{{ form.data.mark }}">
         {{ form.model.errors }}
-        <input name="model" value="">
+        <input name="model" value="{{ form.data.model }}">
         <button type="submit">Create</button>
     </form>
 <script>
