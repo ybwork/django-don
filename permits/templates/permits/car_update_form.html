@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ form.non_field_errors }}
+    <form method="POST" action="{% url 'car-update' car.pk %}">
+        {% csrf_token %}
+        {{ form.number.errors }}
+        <input type="text" name="number" value="{{ object.number }}">
+        {{ form.mark.errors }}
+        <input type="text" name="mark" value="{{ object.mark }}">
+        {{ form.model.errors }}
+        <input type="text" name="model" value="{{ object.model }}">
+        <button type="submit">Обновить</button>
+    </form>
+</body>
+</html>

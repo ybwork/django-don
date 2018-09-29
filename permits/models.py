@@ -11,8 +11,8 @@ class Car(models.Model):
     mark = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
 
-    def get_absolute_url(self):
-        return reverse('cars')
+    # def get_absolute_url(self):
+    #     return reverse('cars')
 
 
 class People(models.Model):
