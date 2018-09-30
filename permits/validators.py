@@ -8,4 +8,6 @@ def validate_number_car(value):
     result = re.search('^[A-Z]\d\d\d[A-Z][A-Z](\d\d|\d\d\d)', value)
 
     if not result:
-        raise ValidationError(_("Number car isn't correct"))
+        raise ValidationError(_(
+            "Номер автомобиля должен состоять из английских букв и быть в формате A343BC161"
+        ))

@@ -25,7 +25,10 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path('', include('profiles.urls')),
+    path('profile/', include('profiles.urls')),
+
+    path('permits/', include('permits.urls')),
+
     path(
         'login/',
         auth_views.LoginView.as_view(
@@ -57,5 +60,4 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     # need add my template
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    path('', include('permits.urls')),
 ]
