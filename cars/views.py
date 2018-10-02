@@ -1,13 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.edit import UpdateView, FormView
 
-from permits.forms import SearchCarForm
-from permits.models import Car
+from cars.forms import SearchCarForm
+from cars.models import Car
 
 
 class CarListView(LoginRequiredMixin, ListView):
@@ -84,13 +86,17 @@ class CarDeleteView(LoginRequiredMixin, DeleteOnlyOwnerMixin, DeleteView):
     success_url = reverse_lazy('car-list')
 
 
-class CarSearchView(LoginRequiredMixin, FormView):
-    form_class = SearchCarForm
-    template_name = 'permits/car_search_form.html'
-    success_url = 'car-search'
+class CarSearchView(LoginRequiredMixin, View):
+    # form_class = SearchCarForm
+    # template_name = 'cars/car_search_form.html'
+    # success_url = 'car-search'
 
-    def form_valid(self, form):
-        return super().form_valid(form)
+    def get(self, request):
+        form = SearchCarForm(request)
+        print(request.GET['number'])
+        print(form.is_valid())
+        return render(request, 'cars/car_search_form.html')
+
 
 
 
