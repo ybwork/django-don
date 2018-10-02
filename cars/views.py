@@ -1,14 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DeleteView
-from django.views.generic.edit import UpdateView, FormView
-
-from cars.forms import SearchCarForm
+from django.views.generic.edit import UpdateView
 from cars.models import Car
 
 
@@ -87,16 +85,19 @@ class CarDeleteView(LoginRequiredMixin, DeleteOnlyOwnerMixin, DeleteView):
 
 
 class CarSearchView(LoginRequiredMixin, View):
-    # form_class = SearchCarForm
-    # template_name = 'cars/car_search_form.html'
-    # success_url = 'car-search'
+    model = Car
 
     def get(self, request):
-        form = SearchCarForm(request)
-        print(request.GET['number'])
-        print(form.is_valid())
-        return render(request, 'cars/car_search_form.html')
+        if self.request.GET:
+            number = self.request.GET['number']
+        else:
+            number = ''
 
+        car = self.model.objects.filter(number=number).first()
+
+        context = {'car': car}
+
+        return render(request, 'cars/car_search.html', context)
 
 
 
