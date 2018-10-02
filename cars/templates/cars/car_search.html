@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'home.html' %}
 
-    {% if car %}
-        {{ car.number }}
-    {% endif%}
+    {% block content %}
 
-    <form action="{% url 'car-search' %}" method="GET">
-        <input type="text" name="number">
-        <button type="submit">Search</button>
-    </form>
+        {% if car %}
+            {{ car.number }}
+        {% endif%}
 
-</body>
-</html>
+        <form action="{% url 'car-search' %}" method="GET">
+            <input type="text" name="number">
+            <button type="submit">Search</button>
+        </form>
+
+    {% endblock content %}
