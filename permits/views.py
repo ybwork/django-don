@@ -4,8 +4,9 @@ from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, FormView
 
+from permits.forms import SearchCarForm
 from permits.models import Car
 
 
@@ -13,7 +14,6 @@ class CarListView(LoginRequiredMixin, ListView):
     model = Car
 
     def get_queryset(self):
-        print()
         queryset = super().get_queryset()
         queryset = queryset.filter(user_id=self.request.user.id)
         return queryset
@@ -83,6 +83,14 @@ class CarDeleteView(LoginRequiredMixin, DeleteOnlyOwnerMixin, DeleteView):
     model = Car
     success_url = reverse_lazy('car-list')
 
+
+class CarSearchView(LoginRequiredMixin, FormView):
+    form_class = SearchCarForm
+    template_name = 'permits/car_search_form.html'
+    success_url = 'car-search'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
 
