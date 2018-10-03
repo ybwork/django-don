@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DeleteView
 from django.views.generic.edit import UpdateView
+
+from cars.forms import CarForm
 from cars.models import Car
 
 
@@ -21,7 +22,7 @@ class CarListView(LoginRequiredMixin, ListView):
 
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Car
-    fields = ['number', 'mark', 'model']
+    form_class = CarForm
     success_message = 'Автомобиль создан!'
     success_url = reverse_lazy('car-list')
 
@@ -46,7 +47,7 @@ class UpdateOnlyOwnerMixin:
         self.object = self.get_object()
 
         if self.object.user_id != request.user.id:
-            raise PermissionDenied
+            raise Http404()
 
         form = self.get_form()
 
@@ -62,7 +63,7 @@ class UpdateOnlyOwnerMixin:
 
 class CarUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateOnlyOwnerMixin, UpdateView):
     model = Car
-    fields = ['number', 'mark', 'model']
+    form_class = CarForm
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('car-list')
     success_message = 'Автомобиль обновлен!'
@@ -76,7 +77,7 @@ class DeleteOnlyOwnerMixin:
             self.object.delete()
             return HttpResponseRedirect(self.success_url)
         else:
-            raise PermissionDenied
+            raise Http404()
 
 
 class CarDeleteView(LoginRequiredMixin, DeleteOnlyOwnerMixin, DeleteView):

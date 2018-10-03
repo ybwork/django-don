@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
     {{ form.non_field_errors }}
     <form id="form" action="{% url 'car-create' %}" method="POST">
         {% csrf_token %}
         {{ form.number.errors }}
+        <label>Номер</label>
         <input name="number" value="{{ form.data.number }}">
         {{ form.mark.errors }}
+        <label>Марка</label>
         <input name="mark" value="{{ form.data.mark }}">
         {{ form.model.errors }}
+        <label>Модель</label>
         <input name="model" value="{{ form.data.model }}">
         <button type="submit">Создать</button>
     </form>
-<script>
-    <!--$.ajax({-->
-        <!--headers: {-->
-            <!--'X-CSRF-Token': $('input[name=csrfmiddlewaretoken]').val()-->
-        <!--},-->
 
-        <!--url: 'http://127.0.0.1:8000/cars',-->
-        <!--type: 'POST',-->
-        <!--data: {-->
-            <!--number: '',-->
-            <!--mark: '',-->
-            <!--model: '',-->
-            <!--csrfmiddlewaretoken: '{{ csrf_token }}'-->
-        <!--},-->
-        <!--success: function(data) {-->
-            <!--var response = $.parseJSON(data)-->
-            <!--console.log(1)-->
-        <!--},-->
-        <!--error: function(e) {-->
-            <!--console.log(2)-->
-        <!--}-->
-    <!--})-->
-</script>
-</body>
-</html>
+{% endblock %}

@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content%}
+
     {% if object_list %}
-        <p><a href="{% url 'car-create' %}">Create</a></p>
+        <p><a href="{% url 'car-create' %}">Создать</a></p>
     {% else %}
-        <p>You don't have cars. <a href="{% url 'car-create' %}">Create</a></p>
+        <p>Нет машин. <a href="{% url 'car-create' %}">Создать</a></p>
     {% endif %}
 
     {% if messages %}
@@ -20,16 +17,25 @@
     {% endif %}
 
     {% for car in object_list %}
-        {{ car.number }}
-        {{ car.mark }}
-        {{ car.model }}
-        <form method="POST" action="{% url 'car-delete' car.pk %}">
-            {% csrf_token %}
-            <input type="hidden" value="Confirm">
-            <button type="submit">del</button>
-        </form>
+        <div>
+            <label>Номер:</label>
+            {{ car.number }}
+            <label>Марка:</label>
+            {{ car.mark }}
+            <label>Модель:</label>
+            {{ car.model }}
 
-        <a href="{% url 'car-update' car.pk %}">Изменить</a>
+            <form method="POST" action="{% url 'car-delete' car.pk %}">
+                {% csrf_token %}
+                <input type="hidden" value="Confirm">
+                <button type="submit">Удалить</button>
+            </form>
+
+            <a href="{% url 'car-update' car.pk %}">Изменить</a>
+
+            <br>
+            <br>
+        </div>
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}
