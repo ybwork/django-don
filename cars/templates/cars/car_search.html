@@ -1,14 +1,14 @@
 {% extends 'home.html' %}
 
-    {% block content %}
+{% block content %}
 
-        {% if car %}
-            {{ car.number }}
-        {% endif%}
+    {% if car %}
+        {{ car.number }}
+    {% endif%}
 
-        <form action="{% url 'car-search' %}" method="GET">
-            <input type="text" name="number">
-            <button type="submit">Search</button>
-        </form>
+    <form action="{% url 'car-search' %}" method="GET">
+        <input type="text" name="number">
+        <button type="submit">Search</button>
+    </form>
 
-    {% endblock content %}
+{% endblock content %}

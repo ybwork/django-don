@@ -26,6 +26,7 @@ class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('car-list')
 
     def form_invalid(self, form):
+        print(form.errors)
         return super().form_invalid(form)
 
     def form_valid(self, form):

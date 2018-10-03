@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content%}
+
     {% if object_list %}
-        <p><a href="{% url 'car-create' %}">Create</a></p>
+        <p><a href="{% url 'car-create' %}">Создать</a></p>
     {% else %}
-        <p>You don't have cars. <a href="{% url 'car-create' %}">Create</a></p>
+        <p>Нет машин. <a href="{% url 'car-create' %}">Создать</a></p>
     {% endif %}
 
     {% if messages %}
@@ -31,5 +28,5 @@
 
         <a href="{% url 'car-update' car.pk %}">Изменить</a>
     {% endfor %}
-</body>
-</html>
+
+{% endblock content %}
